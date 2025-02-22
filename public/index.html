@@ -72,7 +72,7 @@
                 const response = await fetch('https://api.mcstatus.io/v2/status/java/7b7t.net');
                 const data = await response.json();
 
-                document.getElementById('ip').textContent = `IP: ${data.server.ip}`;
+                document.getElementById('ip').textContent = `IP: ${data.server.host}`;
                 document.getElementById('online').textContent = `Online: ${data.server.online ? 'Yes' : 'No'}`;
                 document.getElementById('players').textContent = `Players online: ${data.players.online}`;
             } catch (error) {
