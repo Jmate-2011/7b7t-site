@@ -3,83 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <title>7b7t</title>
-    <style>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-image: url('background.png');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        color: #f8f8f2;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    header {
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .container {
+        flex: 1;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .content {
+        text-align: center;
+        padding: 2.5rem;
+        background: linear-gradient(135deg, #1a1a1a, #2f2f2f);
+        border-radius: 15px;
+        box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+        margin-top: 2rem;
+        animation: fadeIn 1s ease-out;
+    }
+
+    .dark-red {
+        color: #840000;
+        font-weight: 800;
+    }
+
+    .red {
+        color: #ff403f;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        letter-spacing: 1px;
+    }
+
+    h2 {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        line-height: 1.4;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .server-info {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid rgba(255,255,255,0.1);
+        padding: 1.2rem;
+        border-radius: 10px;
+        margin: 1rem 0;
+        transition: background 0.3s ease;
+    }
+
+    .server-info:hover {
+        background: rgba(255,255,255,0.1);
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (max-width: 600px) {
         body {
-            margin: 0;
-            padding: 0;
-            background-image: url('background.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            font-family: Arial, sans-serif;
-            color: white;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            font-size: 0.95rem;
         }
 
-        header {
-            text-align: center;
-            padding: 1px;
-            background-color: rgba(0, 0, 0, 0.5);
+        h1 {
+            font-size: 2.2rem;
         }
 
-        .container {
-            flex: 1;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        h2 {
+            font-size: 1rem;
+            line-height: 1.3;
         }
+    }
 
-        .content {
-            text-align: center;
-            padding: 40px;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
-            border-radius: 10px;
-            margin-top: 50px;
+    @media (max-width: 768px) {
+        .social-container {
+            right: 0;
+            bottom: 0;
+            top: auto;
+            position: fixed;
+            margin-bottom: 1rem;
+            margin-right: 1rem;
         }
+    }
 
-        .dark-red {
-            color: #AA0000;
-        }
+    .server-discord-button {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #5865F2, #3C3EFD);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    margin-top: 1rem;
+}
 
-        .red {
-            color: #FF5555;
-        }
-    </style>
+.server-discord-button:hover {
+    background: linear-gradient(135deg, #3C3EFD, #5865F2);
+}
+</style>
 </head>
 <body>
-    <header>
+<header>
+    <div>
         <h1>
             <span class="dark-red">7Builders</span><span class="red">7Tools</span>
         </h1>
-    </header>
+    </div>
+</header>
 
-    <div class="container">
-        <div class="content">
-            <h2>A semi-vanilla anarchy anarchy server with a map over 300GB large and over 4000+ unique joins. Lava dupe is enabled.</h2>
+<div class="container">
+    <div class="content">
+        <h2>
+            A semi-vanilla anarchy Minecraft server with<br>
+            a massive 375+ GB world and 8000+ unique joins.
+            Frame dupe is enabled.
+        </h2>
+        
+        <div class="server-info">
             <p id="ip">IP: Loading...</p>
             <p id="online">Online: Loading...</p>
             <p id="players">Players online: Loading...</p>
-            <p id="version">Version: 1.20.4</p>
+            <p id="version">Server Version: 1.21.6</p>
+
+            <a href="https://discord.gg/GR62gKjs2A" class="server-discord-button" target="_blank" rel="noopener">
+                Join the Discord
+            </a>
         </div>
     </div>
+</div>
 
-    <script>
-        async function fetchServerStatus() {
-            try {
-                const response = await fetch('https://api.mcstatus.io/v2/status/java/7b7t.net');
-                const data = await response.json();
+<script>
+    async function fetchServerStatus() {
+        try {
+            const response = await fetch('https://api.mcstatus.io/v2/status/java/7b7t.net');
+            const data = await response.json();
 
-                document.getElementById('ip').textContent = `IP: ${data.host}`;
-                document.getElementById('online').textContent = `Online: ${data.online ? 'Yes' : 'No'}`;
-                document.getElementById('players').textContent = `Players online: ${data.players.online}`;
-            } catch (error) {
-                console.error('Error fetching server status:', error);
-            }
+            document.getElementById('ip').textContent = `IP: 7b7t.net`;
+            document.getElementById('online').textContent = `Online: ${data.online ? '✅ Yes' : '❌ No'}`;
+            document.getElementById('players').textContent = `Players online: ${data.players.online}/${data.players.max}`;
+            
+            const statusBox = document.getElementById('online');
+            statusBox.style.color = data.online ? '#00ff88' : '#ff4040';
+        } catch (error) {
+            console.error('Error fetching server status:', error);
         }
-        fetchServerStatus();
-    </script>
+    }
+    fetchServerStatus();
+</script>
 </body>
 </html>
